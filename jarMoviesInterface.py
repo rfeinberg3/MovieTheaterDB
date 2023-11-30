@@ -82,9 +82,9 @@ def member_login():
             cur.execute(''' INSERT INTO Customers(MemberID, Password, Points, Name, Email) VALUES({}, '{}', 0, '{}', '{}' ) '''.format(MemberID, password, name, email))
             conn.commit()
             # initializing customer view for movie
-            cur.execute(''' CREATE ROLE {};'''.format(MemberID))
+            cur.execute(''' CREATE USER u{}; '''.format(MemberID, password))
             conn.commit()
-            cur.execute(''' GRANT SELECT ON TABLE CustomerViewMovie TO {};'''.format(MemberID))
+            cur.execute(''' GRANT SELECT ON TABLE CustomerViewMovie TO u{};'''.format(MemberID))
             conn.commit()
             print("Account Created... Redirecting to login page...")
             userInput = 2
@@ -122,7 +122,7 @@ def member_login():
 
         if userInput == 0:
             print("Returning to main page... ")
-cv
+
 # end of member_login()
 
 

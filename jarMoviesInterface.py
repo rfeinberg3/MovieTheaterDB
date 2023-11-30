@@ -81,6 +81,11 @@ def member_login():
             print("Account created with Member ID: {}".format(MemberID))
             cur.execute(''' INSERT INTO Customers(MemberID, Password, Points, Name, Email) VALUES({}, '{}', 0, '{}', '{}' ) '''.format(MemberID, password, name, email))
             conn.commit()
+            # initializing customer view for movie
+            cur.execute(''' CREATE ROLE {};'''.format(MemberID))
+            conn.commit()
+            cur.execute(''' GRANT SELECT ON TABLE CustomerViewMovie TO {};'''.format(MemberID))
+            conn.commit()
             print("Account Created... Redirecting to login page...")
             userInput = 2
 

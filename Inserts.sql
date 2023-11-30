@@ -83,3 +83,7 @@ INSERT INTO ScheduledAt(StaffID, TheaterCode)
 	('0101010100', '1111'),
 	('0245843220', '2222'),
 	('0123456770', '3333');
+
+CREATE VIEW CustomerViewMovie 
+	AS SELECT MovieID, Name, Duration, Director, Rated, Rating, is3D 
+	FROM Movies;

@@ -79,9 +79,7 @@ def member_login():
             print("\n##########################################")
             print("Creating Account...")
             print("Account created with Member ID: {}".format(MemberID))
-            cur.execute(''' INSERT INTO Customers(MemberID, Password, Points, Name, Email) VALUES({}, 0, '{}', '{}' ) '''.format(MemberID, name, email))
-            conn.commit()
-            cur.execute('''UPDATE Customers SET Password = crypt('{}', get_salt('md5')) WHERE MemberID = {};'''.format(password, MemberID))
+            cur.execute(''' INSERT INTO Customers(MemberID, Password, Points, Name, Email) VALUES({}, '{}', 0, '{}', '{}' ) '''.format(MemberID, password, name, email))
             conn.commit()
             print("Account Created... Redirecting to login page...")
             userInput = 2
@@ -104,7 +102,7 @@ def member_login():
 
             # find user
             cur.execute(
-                ''' SELECT MemberID, Email, Password FROM Customers WHERE Email = '{}' AND Password = crypt('{}', Password); '''.format(email, password)
+                ''' SELECT MemberID, Email, Password FROM Customers WHERE Email = '{}' AND Password = '{}'; '''.format(email, password)
                 )
             for row in cur.fetchall():
                 MemberID = row[0]
@@ -119,7 +117,7 @@ def member_login():
 
         if userInput == 0:
             print("Returning to main page... ")
-
+cv
 # end of member_login()
 
 

@@ -84,6 +84,81 @@ INSERT INTO ScheduledAt(StaffID, TheaterCode)
 	('0245843220', '2222'),
 	('0123456770', '3333');
 
+
+
+CREATE VIEW AdminViewMovies
+	AS SELECT MovieID, Name, Duration, Director, Rated, Rating, is3D
+	FROM Movies
+	GROUP BY MovieID;
 CREATE VIEW CustomerViewMovie 
-	AS SELECT MovieID, Name, Duration, Director, Rated, Rating, is3D 
+	AS SELECT Name, Duration, Director, Rated, Rating, is3D 
 	FROM Movies;
+
+
+CREATE VIEW AdminViewTheaters
+	AS SELECT TheaterCode, Address, Sponsor
+	FROM Theaters
+	GROUP BY TheaterCode;
+
+
+CREATE VIEW AdminViewRooms
+	AS SELECT RoomID, TheaterCode, isXD, Capacity
+	FROM Rooms
+	GROUP BY RoomID;
+
+
+CREATE VIEW AdminViewAt
+	AS SELECT MovieID, TheaterCode
+	FROM At;
+
+
+CREATE VIEW AdminViewShowing
+	AS SELECT ShowingID, MovieID, MovieName, Date, StartTime, TheaterCode, RoomID
+	FROM Showing
+	GROUP BY MovieID;
+CREATE VIEW CustomerViewShowing
+	AS SELECT MovieName, Date, StartTime, TheaterCode, RoomID
+	FROM Showing
+	GROUP BY MovieName, Date, StartTime, TheaterCode, RoomID
+	ORDER BY StartTime;
+
+
+CREATE VIEW AdminViewCustomers
+	AS SELECT MemberID, Points, Name, Email
+	FROM Customers
+	GROUP BY MemberID;
+
+
+CREATE VIEW AdminViewTickets
+	AS SELECT TicketID, Showing, Price, TicketPurchaser, RoomID, Seat, Row
+	FROM Tickets
+	GROUP BY TicketID;
+CREATE VIEW CustomerViewTickets
+	AS SELECT Showing, Price, RoomID, Seat, Row
+	FROM Tickets
+	GROUP BY Showing, Price, RoomID, Seat, Row
+	ORDER BY RoomID, Seat, Row;
+
+
+CREATE VIEW AdminViewStaff
+	AS SELECT StaffID, Name, Email, PhoneNumber
+	FROM Staff
+	GROUP BY StaffID;
+
+
+CREATE VIEW AdminViewConcessionStand
+	AS SELECT ItemID, Name, Price, Quantity
+	FROM ConcessionStand
+	GROUP BY ItemID;
+CREATE VIEW CustomerViewConcessionStand
+	AS SELECT Name, Price
+	FROM ConcessionStand;
+CREATE VIEW StaffViewConcessionStand
+	AS SELECT ItemID, Name, Price, Quantity
+	FROM ConcessionStand
+	GROUP BY ItemID;
+
+
+CREATE VIEW AdminScheduledAt
+	AS SELECT StaffID, TheaterCode
+	FROM Scheduled At;
